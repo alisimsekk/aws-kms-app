@@ -1,0 +1,27 @@
+services:
+  kms-demo-postgres:
+    image: postgres:16.8-alpine
+    environment:
+      POSTGRES_DB: kms-demo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pass
+    ports:
+      - "15437:5432"
+    volumes:
+      - kms-demo-postgres-data:/var/lib/postgresql/data
+
+  kms-demo-localstack:
+    image: localstack/localstack:4.1.0
+    environment:
+      - SERVICES=kms
+      - AWS_DEFAULT_REGION=us-east-1
+      - PERSISTENCE=1
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./aws-init.sh:/etc/localstack/init/ready.d/aws-init.sh
+      - kms-demo-localstack-data:/var/lib/localstack
+
+volumes:
+  kms-demo-postgres-data:
+  kms-demo-localstack-data:
