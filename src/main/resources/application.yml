@@ -1,0 +1,24 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: aws-kms-demo
+  datasource:
+    url: jdbc:postgresql://localhost:15437/kms-demo
+    username: postgres
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  cloud:
+    aws:
+      region:
+        static: us-east-1
+        endpoint: http://localhost:4566
+      credentials:
+        instance-profile: false
+        access-key: test
+        secret-key: test
+
